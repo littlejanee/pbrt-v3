@@ -3,7 +3,7 @@
 # The following lines define the size of the output image and the name of
 # of the file containing the result of rendering
 #
-Film "image" "string filename" ["env_sphere.exr"]
+Film "image" "string filename" ["env_sphere_bw.exr"]
 	"integer xresolution" [300] "integer yresolution" [300]
 
 #
@@ -13,7 +13,7 @@ Film "image" "string filename" ["env_sphere.exr"]
 # up in your final images.
 #
 
-Sampler "lowdiscrepancy" "integer pixelsamples" [16] 
+Sampler "lowdiscrepancy" "integer pixelsamples" [64] 
 
 #
 # Camera configuration: the camera is located on the Z axis, and is
@@ -39,7 +39,7 @@ WorldBegin
 AttributeBegin
 Rotate -90 1 0 0
 Rotate 180 0 0 1
-    LightSource "infinite" "integer nsamples" [16] "color L" [10 10 10]
+    LightSource "infinite" "integer nsamples" [64] "color L" [1 1 1]
         "string mapname" ["textures/familyroom_med_bw.exr"]
 #        "string mapname" ["textures/uffizi_latlong.exr"]
 #        "string mapname" ["textures/skylight-sunset.exr"]
