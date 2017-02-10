@@ -1,0 +1,77 @@
+
+#
+# The following lines define the size of the output image and the name of
+# of the file containing the result of rendering
+#
+Film "image" "string filename" ["env_sphere.exr"]
+	"integer xresolution" [300] "integer yresolution" [300]
+
+#
+# Sampling specification: PBRT will shoot 4 samples rays per pixel.
+# Increasing the number of samples per pixel will increase image quality
+# at the cost of increased rendering time.  Feel free to crank this value
+# up in your final images.
+#
+
+Sampler "lowdiscrepancy" "integer pixelsamples" [16] 
+
+#
+# Camera configuration: the camera is located on the Z axis, and is
+# pointed at the center of the scene
+#
+# position of the camera in world space, the location the camera is pointed at, and the "up" direction of the camera
+LookAt 8 0 0  0 0 0   0 1 0
+Camera "perspective" "float fov" [22]
+
+
+
+WorldBegin
+
+#
+# Light source configuration:  The next region of the pbrt scene file
+# defines the light sources that illuminate the scene. 
+#
+#
+# Spotlight source with 60 degree cone angle pointed at the center of
+# the scene
+#
+
+AttributeBegin
+Rotate -90 1 0 0
+Rotate 180 0 0 1
+    LightSource "infinite" "integer nsamples" [16] "color L" [1 1 1]
+        "string mapname" ["textures/familyroom_med.exr"]
+#        "string mapname" ["textures/uffizi_latlong.exr"]
+#        "string mapname" ["textures/skylight-sunset.exr"]
+AttributeEnd
+
+#
+# The following sections define scene geometry and the material properties
+#
+
+#
+# Backdrop
+#
+
+#AttributeBegin
+#Material "matte" "color Kd" [0.8 0.8 0.8 ]
+#Translate 0 -5 0
+#Shape "trianglemesh" "integer indices" [ 0 1 2 2 0 3 ]
+#    "point P" [-10 0 -10   10 0 -10   10 9 -10   -10 9 -10 ]
+#AttributeEnd
+
+
+#
+# Sphere
+#
+
+AttributeBegin
+Material "metal"  "float roughness" [.001]
+    "spectrum eta" "spds/metals/Al.eta.spd"
+    "spectrum k" "spds/metals/Al.k.spd"
+Shape "sphere" "float radius" 1.25
+AttributeEnd
+
+WorldEnd
+
+
